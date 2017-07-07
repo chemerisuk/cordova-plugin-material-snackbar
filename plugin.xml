@@ -29,7 +29,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
         <header-file src="src/ios/MaterialSnackbarPlugin.h" />
         <source-file src="src/ios/MaterialSnackbarPlugin.m" />
 
-        <pod id="MaterialComponents"/>
+        <pod id="MaterialComponents/Snackbar"/>
     </platform>
 
     <platform name="android">
