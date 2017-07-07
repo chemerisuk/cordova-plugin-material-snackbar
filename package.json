@@ -1,0 +1,31 @@
+{
+  "name": "cordova-plugin-material-snackbar",
+  "version": "0.1.0",
+  "description": "Cordova plugin for Material design Snackbars",
+  "cordova": {
+    "id": "cordova-plugin-material-snackbar",
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chemerisuk/cordova-plugin-material-snackbar.git"
+  },
+  "author": "Maksim Chemerisuk <chemerisuk@gmail.com> (https://github.com/chemerisuk)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chemerisuk/cordova-plugin-material-snackbar/issues"
+  },
+  "homepage": "https://github.com/chemerisuk/cordova-plugin-material-snackbar#readme",
+  "keywords": [
+    "cordova",
+    "material design",
+    "shackbar",
+    "analytics",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ]
+}
