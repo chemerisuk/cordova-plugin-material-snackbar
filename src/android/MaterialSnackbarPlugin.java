@@ -17,10 +17,16 @@ import org.json.JSONException;
 public class MaterialSnackbarPlugin extends CordovaPlugin {
     private static final String TAG = "MaterialSnackbarPlugin";
 
+    private int lastActionColor;
+    private String lastActionText;
+    private CallbackContext lastActionCallback;
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        if ("show".equals(action)) {
-            show(args.getString(0), args.getString(1), args.optInt(2, Snackbar.LENGTH_INDEFINITE), callbackContext);
+        if ("setAction".equals(action)) {
+            setAction(args.getString(0), args.getString(1), callbackContext);
+        } else if ("show".equals(action)) {
+            show(args.getString(0), args.getInt(1), callbackContext);
         } else {
             return false;
         }
@@ -28,7 +34,17 @@ public class MaterialSnackbarPlugin extends CordovaPlugin {
         return true;
     }
 
-    private void show(final String message, final String action, final int duration, final CallbackContext callbackContext) {
+    private void setAction(String actionText, String colorHex, CallbackContext callbackContext) {
+        this.lastActionText = actionText;
+
+        if (colorHex != null) {
+            this.lastActionColor = Color.parseColor(colorHex);
+        }
+
+        this.lastActionCallback = callbackContext;
+    }
+
+    private void show(final String message, final int duration, final CallbackContext callbackContext) {
         cordova.getActivity().runOnUiThread(new Runnable() {
             @Override
             public void run() {
@@ -37,13 +53,16 @@ public class MaterialSnackbarPlugin extends CordovaPlugin {
                 // fix snackbar text color to white
                 textView.setTextColor(Color.WHITE);
 
-                if (!action.isEmpty()) {
-                    snackbar.setAction(action, new View.OnClickListener() {
+                if (lastActionText != null) {
+                    snackbar.setActionTextColor(lastActionColor);
+                    snackbar.setAction(lastActionText, new View.OnClickListener() {
                         @Override
-                        public void onClick(View v) {
-                            Log.d(TAG, "Click");
+                        public void onClick(View view) {
+                            lastActionCallback.success();
                         }
                     });
+
+                    lastActionText = null;
                 }
 
                 snackbar.show();

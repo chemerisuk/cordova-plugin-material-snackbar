@@ -2,7 +2,12 @@ var exec = require("cordova/exec");
 var PLUGIN_NAME = "MaterialSnackbar";
 
 module.exports = {
-    show: function(message, action, duration, success, error) {
-        exec(success, error, PLUGIN_NAME, "show", [message, action, duration]);
+    setAction: function(label, color, success, error) {
+        exec(success, error, PLUGIN_NAME, "setAction", [label, color]);
+
+        return this;
+    },
+    show: function(message, duration, success, error) {
+        exec(success, error, PLUGIN_NAME, "show", [message, duration || 10000]);
     }
 };
